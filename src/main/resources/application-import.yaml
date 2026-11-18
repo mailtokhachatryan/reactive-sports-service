@@ -1,0 +1,15 @@
+spring:
+  main:
+    web-application-type: none
+
+sports:
+  rakuten:
+    endpoint: ${RAKUTEN_ENDPOINT:https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701}
+    application-id: ${RAKUTEN_APPLICATION_ID:}
+    access-key: ${RAKUTEN_ACCESS_KEY:}
+    max-pages-per-genre: 3
+    request-timeout: 10s
+    import-timeout: 3m
+    genre-names:
+      "208012": Tennis
+      "508949": Table Tennis
