@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: reactive-sports-service
+  r2dbc:
+    url: r2dbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:sports}
+    username: ${DB_USERNAME:sports}
+    password: ${DB_PASSWORD}
+  flyway:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:sports}
+    user: ${DB_USERNAME:sports}
+    password: ${DB_PASSWORD}
