@@ -1,7 +1,9 @@
 package com.example.sports.sport.service;
 
+import com.example.sports.sport.Sport;
 import com.example.sports.sport.repository.SportRepository;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -12,6 +14,15 @@ public class SportService {
 
 	public SportService(SportRepository repository) {
 		this.repository = repository;
+	}
+
+	public Mono<Sport> create(String name) {
+		return Mono.defer(() -> repository.save(new Sport(null, validate(name, "Sport name"))))
+				.onErrorMap(SportRepository::isNameConflict, DuplicateSportException::new);
+	}
+
+	public Flux<Sport> search(String query) {
+		return Flux.defer(() -> repository.searchByName(validate(query, "Query parameter q")));
 	}
 
 	public Mono<Boolean> importSport(String name) {
