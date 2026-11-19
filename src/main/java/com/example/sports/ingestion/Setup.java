@@ -39,7 +39,9 @@ class Setup implements ApplicationRunner {
 	}
 
 	Mono<ImportSummary> importItems(Flux<RakutenItem> items) {
-		return items.concatMap(this::persist, 0)
+		// Disable prefetch so each completed batch triggers exactly one new batch request.
+		return ItemBatches.from(items)
+				.concatMap(batch -> Flux.fromIterable(batch).concatMap(this::persist, 0), 0)
 				.reduce(new ImportSummary(0, 0, 0), ImportSummary::add);
 	}
 

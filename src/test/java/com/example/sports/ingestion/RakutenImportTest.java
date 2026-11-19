@@ -68,7 +68,8 @@ class RakutenImportTest {
 						"--DB_USERNAME=" + POSTGRES.getUsername(),
 						"--DB_PASSWORD=" + POSTGRES.getPassword(),
 						"--RAKUTEN_ENDPOINT=" + stub.endpoint(),
-						"--RAKUTEN_APPLICATION_ID=stub-app", "--RAKUTEN_ACCESS_KEY=stub-key")) {
+						"--RAKUTEN_APPLICATION_ID=stub-app", "--RAKUTEN_ACCESS_KEY=stub-key",
+						"--logging.level.com.example.sports.ingestion.ItemBatches=DEBUG")) {
 			assertThat(context.isActive()).isTrue();
 		}
 	}
